@@ -1,4 +1,8 @@
-export const userAction = (payload) => ({ type: 'USER', payload });
+export const REQUEST_API = 'REQUEST_API';
+export const RESPONSE = 'RESPONSE';
+export const USER = 'USER';
+export const WALLET = 'WALLET';
 
-const walletAction = (payload) => ({ type: 'WALLET', payload });
-export default walletAction;
+export const userAction = (payload) => ({ type: USER, payload });
+
+export const walletAction = (payload) => ({ type: WALLET, payload });
