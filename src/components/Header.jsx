@@ -7,18 +7,20 @@ class Header extends Component {
   render() {
     const { email } = this.props;
     return (
-      <header>
+      <header className="display">
         Header
         <br />
-        <div>
-          <strong>Email:</strong>
-          <p data-testid="email-field">{ email }</p>
-        </div>
-        <div>
-          <p>Despesa total: R$</p>
-          <p data-testid="total-field">{ 0 }</p>
-          <p data-testid="header-currency-field">BRL</p>
-        </div>
+        <section className="display gap-15">
+          <div className="display gap-5">
+            <strong>Email:</strong>
+            <p data-testid="email-field">{ email }</p>
+          </div>
+          <div className="display gap-5">
+            <p>Despesa total: R$</p>
+            <p data-testid="total-field">{ 0 }</p>
+            <p data-testid="header-currency-field">BRL</p>
+          </div>
+        </section>
       </header>
     );
   }
