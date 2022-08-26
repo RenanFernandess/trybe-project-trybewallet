@@ -10,3 +10,12 @@ export const walletAction = (payload) => ({ type: WALLET, payload });
 const requestAction = () => ({ type: REQUEST_API });
 
 const responseAction = (payload) => ({ type: RESPONSE, payload });
+
+export default function fetchAPI() {
+  return async (describe) => {
+    describe(requestAction());
+    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const data = await response.json();
+    describe(responseAction(data));
+  };
+}
