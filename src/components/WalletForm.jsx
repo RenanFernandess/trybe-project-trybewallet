@@ -12,6 +12,9 @@ class WalletForm extends Component {
     this.state = {
       value: '',
       description: '',
+      currency: '',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
   }
 
@@ -25,7 +28,7 @@ class WalletForm extends Component {
   }
 
   render() {
-    const { value, description } = this.state;
+    const { value, description, method, currency, tag } = this.state;
     const { currencies } = this.props;
     return (
       <form>
@@ -54,15 +57,46 @@ class WalletForm extends Component {
         <label htmlFor="currency-input">
           <strong>Moeda: </strong>
           <select
-            name=""
+            name="currency"
             id="currency-input"
             data-testid="currency-input"
+            value={ currency }
+            onInput={ this.onInputChange }
           >
-
             {
               currencies.map((item) => (
                 <option key={ item } value={ item }>{ item }</option>))
             }
+          </select>
+        </label>
+        <label htmlFor="method-input">
+          <strong>Método de pagamento: </strong>
+          <select
+            name="method"
+            id="method-input"
+            data-testid="method-input"
+            value={ method }
+            onInput={ this.onInputChange }
+          >
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
+          </select>
+        </label>
+        <label htmlFor="tag-input">
+          <strong>Categoria: </strong>
+          <select
+            name="tag"
+            id="tag-input"
+            data-testid="tag-input"
+            value={ tag }
+            onInput={ this.onInputChange }
+          >
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saúde">Saúde</option>
           </select>
         </label>
       </form>
