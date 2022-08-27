@@ -9,16 +9,17 @@ const INITIAL_STATE = {
 };
 
 export default function wallet(state = INITIAL_STATE, { type, payload }) {
-  delete payload.USDT;
-
   switch (type) {
   case REQUEST_API: return {
     ...state,
   };
-  case RESPONSE: return {
-    ...state,
-    currencies: Object.keys(payload),
-  };
+  case RESPONSE: {
+    delete payload.USDT;
+    return {
+      ...state,
+      currencies: Object.keys(payload),
+    };
+  }
   case WALLET: return {
     ...state,
     ...payload,
