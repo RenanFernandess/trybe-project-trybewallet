@@ -1,5 +1,5 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-import { WALLET } from '../actions';
+import { WALLET, REQUEST_API, RESPONSE } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -9,7 +9,16 @@ const INITIAL_STATE = {
 };
 
 export default function wallet(state = INITIAL_STATE, { type, payload }) {
+  delete payload.USDT;
+
   switch (type) {
+  case REQUEST_API: return {
+    ...state,
+  };
+  case RESPONSE: return {
+    ...state,
+    currencies: Object.keys(payload),
+  };
   case WALLET: return {
     ...state,
     ...payload,
