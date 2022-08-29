@@ -4,11 +4,15 @@ import renderWithRouterAndRedux from './helpers/renderWith';
 import Wallet from '../pages/Wallet';
 
 const inputValueTestId = 'value-input';
-// const inputDescriptionTestId = 'description-input';
+const inputDescriptionTestId = 'description-input';
 
 describe('testa o componente WalletForm', () => {
   it('Verifica se possui um campo para adicionar valor da despesa', () => {
     renderWithRouterAndRedux(<Wallet />);
     expect(screen.getByTestId(inputValueTestId)).toBeInTheDocument();
+  });
+  it('Verifica se possui um campo para adicionar a descrição da despesa', () => {
+    renderWithRouterAndRedux(<Wallet />);
+    expect(screen.getByTestId(inputDescriptionTestId)).toBeInTheDocument();
   });
 });
