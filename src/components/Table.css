@@ -21,7 +21,8 @@
   min-width: 6rem;
 }
 
-.tbody th {
+.tbody td {
   background-color: var(--table-main-color);
   height: 2rem;
+  text-align: center;
 }
