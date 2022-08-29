@@ -2,12 +2,12 @@
 
   --table-header-color: rgb(55, 55, 55);
 
-  --table-main-color: rgb(99, 99, 99);
+  --table-main-color: rgb(81, 81, 81);
 }
 
 .table {
-  background-color: var(--table-main-color);
-  border: 1px solid var(--table-header-color);
+  background-color: var(--table-header-color);
+  border: 1px solid rgb(28, 28, 31);
   width: 95vw;
 }
 
@@ -19,4 +19,9 @@
 .tr th {
   max-width: 10vw;
   min-width: 6rem;
+}
+
+.tbody th {
+  background-color: var(--table-main-color);
+  height: 2rem;
 }
