@@ -42,4 +42,19 @@ describe('Testes da Pagina Login', () => {
 
     expect(button).not.toBeDisabled();
   });
+  it('Verifica se au clicar o botão muda para a rota "/carteira"', () => {
+    const { history } = renderWithRouterAndRedux(<App />);
+
+    const inputPassword = screen.getByTestId(inputPasswordTestId);
+    const inputEmail = screen.getByTestId(inputEmailTestId);
+
+    userEvent.type(inputPassword, '123456');
+    userEvent.type(inputEmail, 'xablau@gmail.com');
+
+    const button = screen.getByRole('button', { name: buttonText });
+
+    userEvent.click(button);
+
+    expect(history.location.pathname).toBe('/carteira');
+  });
 });
