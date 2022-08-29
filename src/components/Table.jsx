@@ -43,7 +43,7 @@ class Table extends Component {
                       <td>{ description }</td>
                       <td>{ tag }</td>
                       <td>{ method }</td>
-                      <td>{ this.formatNumber(value) }</td>
+                      <td>{ Number(value).toFixed(2) }</td>
                       <td>{ name }</td>
                       <td>{ Number(ask).toFixed(2) }</td>
                       <td>{ this.formatNumber(value * ask) }</td>
