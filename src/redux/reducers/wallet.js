@@ -22,7 +22,7 @@ export default function wallet(state = INITIAL_STATE, { type, payload }) {
   }
   case WALLET: return {
     ...state,
-    ...payload,
+    expenses: [...state.expenses, payload],
   };
   default: return state;
   }
