@@ -18,4 +18,10 @@ describe('Testa o componente Header', () => {
     expect(field).toBeInTheDocument();
     expect(field).toHaveTextContent('0');
   });
+  it('Verifica se possui um elemento que mostre qual câmbio está sendo utilizado, que neste caso será "BRL"', () => {
+    renderWithRouterAndRedux(<Wallet />);
+    const field = screen.getByTestId(headerCurrencyFieldTestId);
+    expect(field).toBeInTheDocument();
+    expect(field).toHaveTextContent('BRL');
+  });
 });
