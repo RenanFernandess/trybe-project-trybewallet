@@ -12,10 +12,21 @@ const requestAction = () => ({ type: REQUEST_API });
 export const responseAction = (payload) => ({ type: RESPONSE, payload });
 
 export default function fetchAPI() {
-  return async (describe) => {
-    describe(requestAction());
+  return async (dispatch) => {
+    dispatch(requestAction());
     const response = await fetch('https://economia.awesomeapi.com.br/json/all');
     const data = await response.json();
-    describe(responseAction(data));
+    dispatch(responseAction(data));
   };
 }
+
+export const walletFetchAPI = (obj) => (
+  async (dispatch) => {
+    dispatch(requestAction());
+    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const data = await response.json();
+    delete data.USDT;
+    obj.exchangeRates = data;
+    dispatch(walletAction(obj));
+  }
+);
