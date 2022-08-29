@@ -1,0 +1,22 @@
+:root {
+
+  --table-header-color: rgb(55, 55, 55);
+
+  --table-main-color: rgb(99, 99, 99);
+}
+
+.table {
+  background-color: var(--table-main-color);
+  border: 1px solid var(--table-header-color);
+  width: 95vw;
+}
+
+.thead {
+  background-color: var(--table-header-color);
+  height: 3rem;
+}
+
+.tr th {
+  max-width: 10vw;
+  min-width: 6rem;
+}
