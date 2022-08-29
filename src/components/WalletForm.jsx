@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-import fetchAPI from '../redux/actions';
+import fetchAPI, { walletFetchAPI } from '../redux/actions';
 
 class WalletForm extends Component {
   constructor() {
     super();
 
     this.onInputChange = this.onInputChange.bind(this);
+    this.onClickButton = this.onClickButton.bind(this);
 
     this.state = {
       value: '',
       description: '',
-      currency: '',
+      currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
     };
@@ -25,6 +26,22 @@ class WalletForm extends Component {
 
   onInputChange({ target: { name, value } }) {
     this.setState({ [name]: value });
+  }
+
+  onClickButton() {
+    const { expenses, dispatch } = this.props;
+    const { value, description, currency, method, tag } = this.state;
+
+    const obj = {
+      id: expenses.length,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+    };
+
+    dispatch(walletFetchAPI(obj));
   }
 
   render() {
@@ -99,6 +116,12 @@ class WalletForm extends Component {
             <option value="Saúde">Saúde</option>
           </select>
         </label>
+        <button
+          type="button"
+          onClick={ this.onClickButton }
+        >
+          Adicionar despesa
+        </button>
       </form>
     );
   }
@@ -107,6 +130,9 @@ class WalletForm extends Component {
 WalletForm.propTypes = {
   currencies: propTypes.arrayOf(propTypes.string),
   dispatch: propTypes.func,
+  expenses: propTypes.arrayOf({
+
+  }),
 }.isRequired;
 
 const mapStateToProps = ({ wallet }) => ({
