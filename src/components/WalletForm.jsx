@@ -31,7 +31,6 @@ class WalletForm extends Component {
   onClickButton() {
     const { expenses, dispatch } = this.props;
     const { value, description, currency, method, tag } = this.state;
-
     const obj = {
       id: expenses.length,
       value,
@@ -40,8 +39,8 @@ class WalletForm extends Component {
       method,
       tag,
     };
-
     dispatch(walletFetchAPI(obj));
+    this.setState({ value: '', description: '' });
   }
 
   render() {
