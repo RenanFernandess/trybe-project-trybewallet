@@ -2,12 +2,25 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Table.css';
 import propTypes from 'prop-types';
+import { deleteExpenseAction } from '../redux/actions';
 
 class Table extends Component {
+  constructor() {
+    super();
+
+    this.deleteExpense = this.deleteExpense.bind(this);
+  }
+
   formatNumber(value) {
     const regExp = /^(\d+\.\d{2})/gm;
     if (!regExp.test(value)) return `${value}.00`;
     return `${value}`.match(regExp);
+  }
+
+  deleteExpense({ target: { name } }) {
+    const { expenses, dispatch } = this.props;
+    const newExpenses = expenses.filter(({ id }) => id !== Number(name));
+    dispatch(deleteExpenseAction(newExpenses));
   }
 
   render() {
@@ -33,13 +46,12 @@ class Table extends Component {
             expenses.length
               ? expenses
                 .map((
-                  { value, description, currency, method, tag, exchangeRates },
-                  index,
+                  { id, value, description, currency, method, tag, exchangeRates },
                 ) => {
                   const { [currency]: { name, ask } } = exchangeRates;
 
                   return (
-                    <tr key={ index }>
+                    <tr key={ id }>
                       <td>{ description }</td>
                       <td>{ tag }</td>
                       <td>{ method }</td>
@@ -48,7 +60,16 @@ class Table extends Component {
                       <td>{ Number(ask).toFixed(2) }</td>
                       <td>{ this.formatNumber(value * ask) }</td>
                       <td>Real</td>
-                      <td>{}</td>
+                      <td>
+                        <button
+                          type="button"
+                          data-testid="delete-btn"
+                          name={ id }
+                          onClick={ this.deleteExpense }
+                        >
+                          Remover
+                        </button>
+                      </td>
                     </tr>
                   );
                 })
@@ -62,6 +83,7 @@ class Table extends Component {
 
 Table.propTypes = {
   expenses: propTypes.arrayOf(propTypes.object),
+  dispatch: propTypes.func,
 }.isRequired;
 
 const mapStateToProps = ({ wallet }) => ({
