@@ -61,4 +61,29 @@ describe('Testa o componente Table', () => {
     expect(screen.getAllByText(/^Real$/gi, { selector: 'td' })).toHaveLength(2);
     expect(screen.getAllByText(/^Dinheiro$/gi, { selector: 'td' })).toHaveLength(2);
   });
+  it('Testa se o resultado der um numero sem casas decimais, o valor total é mostrado no formato correto com apenas duas casas decimais apos o ponto "0.00"', () => {
+    const walletmock = {
+      wallet: {
+        expenses: [
+          {
+            id: 0,
+            value: '40',
+            description: 'Chinelo quadrado',
+            currency: 'USD',
+            method: 'Dinheiro',
+            tag: 'Lazer',
+            exchangeRates: {
+              USD: {
+                ask: 4,
+              },
+            },
+          },
+        ],
+      },
+    };
+
+    renderWithRouterAndRedux(<Table />, { initialState: walletmock });
+
+    expect(screen.getByText(/^160.00$/gi, { selector: 'td' })).toBeInTheDocument();
+  });
 });
