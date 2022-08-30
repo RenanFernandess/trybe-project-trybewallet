@@ -68,7 +68,7 @@ describe('Testa o componente Header', () => {
     expect(emailElement).toBeInTheDocument();
     expect(emailElement).toHaveTextContent(email);
   });
-  it('Verifica se o Verifica se o valor total é atualizado', () => {
+  it('Verifica se o Verifica se o valor total é atualizado e possui o formato correto com apenas duas casas decimais apos o ponto "0.00"', () => {
     renderWithRouterAndRedux(<Header />, { initialState: wallet });
     const totalField = screen.getByTestId(totalFieldTestId);
     expect(totalField).toBeInTheDocument();
