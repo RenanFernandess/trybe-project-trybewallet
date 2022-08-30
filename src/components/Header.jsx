@@ -18,7 +18,6 @@ class Header extends Component {
 
   calculateExpense() {
     const { expenses } = this.props;
-    console.log('exp: ', expenses);
     if (expenses.length) {
       const totalExpense = expenses
         .reduce((total, { value, currency, exchangeRates }) => {
