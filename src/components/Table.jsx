@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Table.css';
 import propTypes from 'prop-types';
-import { deleteExpenseAction } from '../redux/actions';
+import { deleteExpenseAction, toEditAction } from '../redux/actions';
 
 class Table extends Component {
   constructor() {
     super();
 
     this.deleteExpense = this.deleteExpense.bind(this);
+    this.toEdit = this.toEdit.bind(this);
   }
 
   formatNumber(value) {
@@ -21,6 +22,11 @@ class Table extends Component {
     const { expenses, dispatch } = this.props;
     const newExpenses = expenses.filter(({ id }) => id !== Number(name));
     dispatch(deleteExpenseAction(newExpenses));
+  }
+
+  toEdit({ target: { name } }) {
+    const { dispatch } = this.props;
+    dispatch(toEditAction({ idToEdit: Number(name), editor: true }));
   }
 
   render() {
@@ -61,6 +67,14 @@ class Table extends Component {
                       <td>{ this.formatNumber(value * ask) }</td>
                       <td>Real</td>
                       <td>
+                        <button
+                          type="button"
+                          data-testid="edit-btn"
+                          name={ id }
+                          onClick={ this.toEdit }
+                        >
+                          Editar
+                        </button>
                         <button
                           type="button"
                           data-testid="delete-btn"
