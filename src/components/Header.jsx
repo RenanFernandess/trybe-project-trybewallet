@@ -25,7 +25,7 @@ class Header extends Component {
           return resulte;
         }, 0);
       return this.formatNumber(totalExpense);
-    } return 0;
+    } return '0.00';
   }
 
   render() {
