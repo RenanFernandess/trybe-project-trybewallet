@@ -8,7 +8,7 @@ export const userAction = (payload) => ({ type: USER, payload });
 
 export const walletAction = (payload) => ({ type: WALLET, payload });
 
-export const expenseDelete = (payload) => ({ type: DELETE_EXPENSE, payload });
+export const deleteExpenseAction = (payload) => ({ type: DELETE_EXPENSE, payload });
 
 const requestAction = () => ({ type: REQUEST_API });
 
