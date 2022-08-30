@@ -10,7 +10,6 @@ const totalFieldTestId = 'total-field';
 const headerCurrencyFieldTestId = 'header-currency-field';
 const user = { user: { email: 'xablau@gmail.com' } };
 const { user: { email } } = user;
-const expectedValue = '784.26';
 const wallet = {
   wallet: {
     expenses: [
@@ -72,6 +71,33 @@ describe('Testa o componente Header', () => {
     renderWithRouterAndRedux(<Header />, { initialState: wallet });
     const totalField = screen.getByTestId(totalFieldTestId);
     expect(totalField).toBeInTheDocument();
-    expect(totalField).toHaveTextContent(expectedValue);
+    expect(totalField).toHaveTextContent(/^784.26$/g);
+  });
+  it('Testa se o resultado der um numero sem casas decimais, o valor total é mostrado no formato correto com apenas duas casas decimais apos o ponto "0.00"', () => {
+    const walletmock = {
+      wallet: {
+        expenses: [
+          {
+            id: 0,
+            value: '40',
+            description: 'Chinelo quadrado',
+            currency: 'USD',
+            method: 'Dinheiro',
+            tag: 'Lazer',
+            exchangeRates: {
+              USD: {
+                ask: 4,
+              },
+            },
+          },
+        ],
+      },
+    };
+
+    renderWithRouterAndRedux(<Header />, { initialState: walletmock });
+
+    const totalField = screen.getByTestId(totalFieldTestId);
+    expect(totalField).toBeInTheDocument();
+    expect(totalField).toHaveTextContent(/^160.00$/g);
   });
 });
