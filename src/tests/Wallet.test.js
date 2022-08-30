@@ -60,4 +60,30 @@ describe('Testa a pagina Wallet', () => {
 
     expect(await screen.findByTestId(totalFieldTestId)).toHaveTextContent(/^190.12$/i);
   });
+  it('Testa se a pessoa usuária adicionar um gasto, as informações são adicionadas na tabela', async () => {
+    global.fetch = jest.fn().mockResolvedValue({
+      json: jest.fn().mockResolvedValue({
+        ...mockData,
+      }),
+    });
+
+    renderWithRouterAndRedux(<Wallet />);
+
+    const inputValue = screen.getByTestId(inputValueTestId);
+    const inputDescription = screen.getByTestId(inputDescriptionTestId);
+    const button = screen.getByRole('button', { name: buttonText });
+
+    userEvent.type(inputValue, '40');
+    userEvent.type(inputDescription, 'test');
+    userEvent.click(button);
+
+    expect(await screen.findByText(/^test$/gi, { selector: 'td' })).toBeInTheDocument();
+    expect(await screen.findByText(/^Alimentação$/gi, { selector: 'td' })).toBeInTheDocument();
+    expect(await screen.findByText(/^40.00$/gi, { selector: 'td' })).toBeInTheDocument();
+    expect(await screen.findByText(/^190.12$/gi, { selector: 'td' })).toBeInTheDocument();
+    expect(await screen.findByText(/^Dólar Americano\/Real Brasileiro$/gi, { selector: 'td' })).toBeInTheDocument();
+    expect(await screen.findByText(/^4.75$/gi, { selector: 'td' })).toBeInTheDocument();
+    expect(await screen.findByText(/^Real$/gi, { selector: 'td' })).toBeInTheDocument();
+    expect(await screen.findByText(/^Dinheiro$/gi, { selector: 'td' })).toBeInTheDocument();
+  });
 });
