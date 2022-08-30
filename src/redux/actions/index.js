@@ -3,12 +3,15 @@ export const RESPONSE = 'RESPONSE';
 export const USER = 'USER';
 export const WALLET = 'WALLET';
 export const DELETE_EXPENSE = 'DELETE';
+export const TO_EDIT = 'TO_EDIT';
 
 export const userAction = (payload) => ({ type: USER, payload });
 
 export const walletAction = (payload) => ({ type: WALLET, payload });
 
 export const deleteExpenseAction = (payload) => ({ type: DELETE_EXPENSE, payload });
+
+export const toEditAction = (payload) => ({ type: TO_EDIT, payload });
 
 const requestAction = () => ({ type: REQUEST_API });
 
