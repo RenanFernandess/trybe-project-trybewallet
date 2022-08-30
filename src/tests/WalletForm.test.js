@@ -9,6 +9,7 @@ const inputDescriptionTestId = 'description-input';
 const inputCurrencyTestId = 'currency-input';
 const inputMethodTestId = 'method-input';
 const inputTagTestId = 'tag-input';
+const buttonText = /^Adicionar despesa$/ig;
 
 const wallet = {
   wallet: {
@@ -38,10 +39,12 @@ describe('testa o componente WalletForm', () => {
     renderWithRouterAndRedux(<Wallet />);
     expect(screen.getByTestId(inputValueTestId)).toBeInTheDocument();
   });
+
   it('Verifica se possui um campo para adicionar a descrição da despesa', () => {
     renderWithRouterAndRedux(<Wallet />);
     expect(screen.getByTestId(inputDescriptionTestId)).toBeInTheDocument();
   });
+
   it('Verifica se possui um campo para selecionar em qual moeda será registrada a despesa', () => {
     renderWithRouterAndRedux(<WalletForm />, { initialState: wallet });
     const inputCurrency = screen.getByTestId(inputCurrencyTestId);
@@ -63,6 +66,7 @@ describe('testa o componente WalletForm', () => {
     expect(inputCurrency.options[13]).toHaveTextContent(currencies[13]);
     expect(inputCurrency.options[14]).toHaveTextContent(currencies[14]);
   });
+
   it('Verifica se possui um campo para adicionar qual método de pagamento será utilizado', () => {
     renderWithRouterAndRedux(<Wallet />);
     const inputMethod = screen.getByTestId(inputMethodTestId);
@@ -73,6 +77,7 @@ describe('testa o componente WalletForm', () => {
     expect(two).toHaveTextContent('Cartão de crédito');
     expect(three).toHaveTextContent('Cartão de débito');
   });
+
   it('Verifica se possui um campo para selecionar uma categoria (tag) para a despesa', () => {
     renderWithRouterAndRedux(<Wallet />);
     const inputTag = screen.getByTestId(inputTagTestId);
@@ -83,5 +88,10 @@ describe('testa o componente WalletForm', () => {
     expect(inputTag.options[2]).toHaveTextContent('Trabalho');
     expect(inputTag.options[3]).toHaveTextContent('Transporte');
     expect(inputTag.options[4]).toHaveTextContent('Saúde');
+  });
+
+  it('Verifica se possui um botão com o texto "Adicionar despesa"', () => {
+    renderWithRouterAndRedux(<Wallet />);
+    expect(screen.getByRole('button', { name: buttonText })).toBeInTheDocument();
   });
 });
