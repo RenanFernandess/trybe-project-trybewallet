@@ -1,5 +1,6 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import renderWithRouterAndRedux from './helpers/renderWith';
 import Wallet from '../pages/Wallet';
 import mockData from './helpers/mockData';
@@ -9,7 +10,8 @@ const inputDescriptionTestId = 'description-input';
 const inputCurrencyTestId = 'currency-input';
 const inputMethodTestId = 'method-input';
 const inputTagTestId = 'tag-input';
-const buttonText = /^Adicionar despesa$/ig;
+const buttonText = /^Adicionar despesa$/i;
+const totalFieldTestId = 'total-field';
 
 describe('Testa a pagina Wallet', () => {
   it('Verifica se possui um formulario onde a pessoa usuária pode digitar as informações sobre os seus gastos', () => {
@@ -34,5 +36,28 @@ describe('Testa a pagina Wallet', () => {
     expect(inputMethod).toBeInTheDocument();
     expect(inputTag).toBeInTheDocument();
     expect(button).toBeInTheDocument();
+  });
+  it('testa se a pessoa usuária adicionar um gasto, o valor total no header é atualizado', async () => {
+    global.fetch = jest.fn().mockResolvedValue({
+      json: jest.fn().mockResolvedValue({
+        ...mockData,
+      }),
+    });
+
+    renderWithRouterAndRedux(<Wallet />);
+
+    const field = screen.getByTestId(totalFieldTestId);
+    expect(field).toBeInTheDocument();
+    expect(field).toHaveTextContent('0');
+
+    const inputValue = screen.getByTestId(inputValueTestId);
+    const inputDescription = screen.getByTestId(inputDescriptionTestId);
+    const button = screen.getByRole('button', { name: buttonText });
+
+    userEvent.type(inputValue, '40');
+    userEvent.type(inputDescription, 'test');
+    userEvent.click(button);
+
+    expect(await screen.findByTestId(totalFieldTestId)).toHaveTextContent(/^190.12$/i);
   });
 });
