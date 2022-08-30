@@ -6,6 +6,8 @@ import Wallet from '../pages/Wallet';
 const emailFieldTestId = 'email-field';
 const totalFieldTestId = 'total-field';
 const headerCurrencyFieldTestId = 'header-currency-field';
+const user = { user: { email: 'xablau@gmail.com' } };
+const { user: { email } } = user;
 
 describe('Testa o componente Header', () => {
   it('Verifica se possui um elemento que exiba o e-mail da pessoa usuária que fez login', () => {
@@ -23,5 +25,11 @@ describe('Testa o componente Header', () => {
     const field = screen.getByTestId(headerCurrencyFieldTestId);
     expect(field).toBeInTheDocument();
     expect(field).toHaveTextContent('BRL');
+  });
+  it('Verifica se o e-mail que a pessoa usuária utilizou para fazer login é exibido na tela', () => {
+    renderWithRouterAndRedux(<Wallet />, { initialState: user });
+    const emailElement = screen.getByTestId(emailFieldTestId);
+    expect(emailElement).toBeInTheDocument();
+    expect(emailElement).toHaveTextContent(email);
   });
 });
