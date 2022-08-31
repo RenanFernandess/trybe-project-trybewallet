@@ -24,7 +24,8 @@ export default function wallet(state = INITIAL_STATE, { type, payload }) {
   }
   case SAVE_EDIT: return {
     ...state,
-    expenses: [...payload],
+    ...payload,
+    expenses: [...payload.expenses],
   };
   case DELETE_EXPENSE: return {
     ...state,
