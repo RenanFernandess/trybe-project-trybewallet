@@ -73,7 +73,14 @@ class WalletForm extends Component {
     expenses[expenseIndex].currency = currency;
     expenses[expenseIndex].tag = tag;
     dispatch(saveEditAction({ expenses, editor: false, idToEdit: 0 }));
-    this.setState({ wasCalled: false });
+    this.setState({
+      wasCalled: false,
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+    });
   }
 
   addValue() {
