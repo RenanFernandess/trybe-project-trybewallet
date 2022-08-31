@@ -72,7 +72,8 @@ class WalletForm extends Component {
     expenses[expenseIndex].method = method;
     expenses[expenseIndex].currency = currency;
     expenses[expenseIndex].tag = tag;
-    dispatch(saveEditAction(expenses));
+    dispatch(saveEditAction({ expenses, editor: false, idToEdit: 0 }));
+    this.setState({ wasCalled: false });
   }
 
   addValue() {
