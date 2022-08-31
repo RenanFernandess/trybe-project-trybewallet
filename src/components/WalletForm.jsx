@@ -33,7 +33,6 @@ class WalletForm extends Component {
     const { editor } = this.props;
 
     if (editor && !wasCalled) {
-      console.log('ok');
       this.addValue();
     }
   }
